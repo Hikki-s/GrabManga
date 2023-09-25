@@ -1,7 +1,6 @@
 import configparser
 import os
 
-
 config = configparser.ConfigParser()
 config_file = 'settings.ini'
 
@@ -12,5 +11,7 @@ def create_conf():
         config.set('Settings', 'save_path', '../../')
         config.set('Settings', 'save_images', 'False')
         config.set('Settings', 'pdf_merge', 'True')
+        config.set('Settings', 'fier_fox_profile', '')
+
         with open(config_file, 'w') as configfile:
             config.write(configfile)

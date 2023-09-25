@@ -16,7 +16,7 @@ class MangaVolumeLib(MangaVolume):
         count_pages = \
             soup.find('label', class_='button reader-pages__label reader-footer__btn').find('span').text.split()[-1]
         for page_nuber in range(1, int(count_pages) + 1):
-            driver.get(url=f"{self.volume_url}?page={page_nuber}")
+            driver.get(url=f"{self.volume_url}&page={page_nuber}")
             html_content = driver.page_source
             soup = BeautifulSoup(html_content, 'html.parser')
             page_img_url = soup.select("div.reader-view__wrap:not(.hidden) img").pop()['src']
@@ -32,7 +32,6 @@ class MangaLib(Manga):
             tags = soup.find('div', class_='media-sidebar')
 
             self.title = pattern.sub('', soup.find('div', class_='media-name__main').text)
-            self.create_manga_dir()
 
             media_info = list(zip([item.text for item in tags.findAll('div', class_='media-info-list__title')],
                                   [item.text.strip() for item in tags.findAll('div', class_='media-info-list__value')]))
@@ -69,8 +68,6 @@ class MangaLib(Manga):
                         self.age_rating = characteristic
                     case 'Альтернативные названия':
                         self.alter_name = characteristic
-        self.pdf_merge()
-        self.create_manga_info()
         messagebox.showinfo('Alert', f'Download {self.title} finished')
 
 

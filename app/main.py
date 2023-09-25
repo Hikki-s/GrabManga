@@ -72,7 +72,7 @@ def on_exit(event):
 if __name__ == '__main__':
 
     create_conf()
-
+    config.read(config_file)
     path_is_default = config.get('Settings', 'save_path') == '../../'
     window = tk.Tk()
     window.geometry('650x150')
